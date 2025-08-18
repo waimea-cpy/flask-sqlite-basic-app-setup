@@ -9,14 +9,13 @@ from os import getenv
 from app.helpers.logging import log_db_request, log_db_result
 
 
-# Load Turso environment variables from the .env file
+# Load environment variables from the .env file
 load_dotenv()
-TURSO_URL = getenv("TURSO_URL")
-TURSO_KEY = getenv("TURSO_KEY")
+LOCAL_DB_PATH = getenv("LOCAL_DB_PATH")
 
 
 #-----------------------------------------------------------
-# Connect to the Turso DB and return the connection
+# Connect to the DB and return the connection
 #-----------------------------------------------------------
 @contextmanager
 def connect_db():
@@ -24,8 +23,8 @@ def connect_db():
     client = None
 
     try:
-        # Create a connection to the Turso DB
-        client = create_client_sync(url=TURSO_URL, auth_token=TURSO_KEY)
+        # Use local SQLite file
+        client = create_client_sync(url=LOCAL_DB_PATH)
 
         # Clear any past queries
         app.dbSQL = None

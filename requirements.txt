@@ -5,7 +5,7 @@
 # Flask framework
 Flask
 
-# Turso API library
+# Turso SQLite API library
 libsql-client
 
 # Environment Variables
